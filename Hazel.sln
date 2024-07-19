@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hazel", "Hazel\Hazel.vcxproj", "{CA1BD68F-5003-4A96-954A-77213027B50B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SandBox", "SandBox\SandBox.vcxproj", "{00787181-64CE-4CBA-BEA8-7EE1EA4B204A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA1BD68F-5003-4A96-954A-77213027B50B}.Debug|x64.ActiveCfg = Debug|x64
+		{CA1BD68F-5003-4A96-954A-77213027B50B}.Debug|x64.Build.0 = Debug|x64
+		{CA1BD68F-5003-4A96-954A-77213027B50B}.Release|x64.ActiveCfg = Release|x64
+		{CA1BD68F-5003-4A96-954A-77213027B50B}.Release|x64.Build.0 = Release|x64
+		{00787181-64CE-4CBA-BEA8-7EE1EA4B204A}.Debug|x64.ActiveCfg = Debug|x64
+		{00787181-64CE-4CBA-BEA8-7EE1EA4B204A}.Debug|x64.Build.0 = Debug|x64
+		{00787181-64CE-4CBA-BEA8-7EE1EA4B204A}.Release|x64.ActiveCfg = Release|x64
+		{00787181-64CE-4CBA-BEA8-7EE1EA4B204A}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B0624D7-8D52-4CD4-9D5B-4B477142E6EB}
+	EndGlobalSection
+EndGlobal
