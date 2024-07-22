@@ -12,23 +12,23 @@ project "Hazel"
     kind "SharedLib"
     language "C++"
 
-    targetdir ("bin" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
     }
 
-    include
+    includedirs
     {
         "%{prj.name}/vendor/spdlog/include"    
     }
 
-    filter { "configurations:windows" }
+    filter { "system:windows" }
         cppdialect "C++17"
         staticruntime "On"
-        systemversion "10.0.17134.0"
+        systemversion "10.0"
 
         defines
         {
@@ -60,17 +60,12 @@ project "Sandbox"
     kind "ConsoleApp"
     language "C++"
 
-    targetdir ("bin" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
-    }
-
-    include
-    {
-        "%{prj.name}/vendor/spdlog/include"    
     }
 
     includedirs
@@ -87,7 +82,7 @@ project "Sandbox"
     filter { "system:windows" }
         cppdialect "C++17"
         staticruntime "On"
-        systemversion "10.0.17134.0"
+        systemversion "10.0"
 
         defines
         {
