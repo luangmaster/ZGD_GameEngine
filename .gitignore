@@ -5,8 +5,9 @@
 
 # Directories
 .vs/
-bin/
 bin-int/
+bin/
+!vendor/bin
 
 # Files
 *.vcxproj
