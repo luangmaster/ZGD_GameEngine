@@ -1,5 +1,5 @@
 workspace "Hazel"
-
+	startproject "Sandbox"
     architecture "x64"
     configurations { "Debug", "Release", "Dist"}
 
