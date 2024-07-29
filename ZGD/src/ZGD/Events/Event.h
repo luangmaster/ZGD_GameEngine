@@ -1,8 +1,8 @@
 #pragma once
-#include "hzpch.h"
-#include "Hazel/Core.h"
+#include "zgdpch.h"
+#include "ZGD/Core.h"
 
-namespace Hazel {
+namespace ZGD {
 	enum class EventType
 	{
 		None = 0,
@@ -28,7 +28,7 @@ namespace Hazel {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class HAZEL_API Event
+	class ZGD_API Event
 	{
 	public:
 		virtual EventType GetEventType() const = 0;
@@ -69,5 +69,10 @@ namespace Hazel {
 	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
 		return os << e.ToString();
+	}
+
+	inline auto format_as(const Event& e)
+	{
+		return e.ToString();
 	}
 }

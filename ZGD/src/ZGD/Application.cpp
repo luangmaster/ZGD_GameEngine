@@ -1,10 +1,10 @@
-#include "hzpch.h"
+#include "zgdpch.h"
 #include "Application.h"
 #include "Events/ApplicationEvent.h"
 
 #include <GLFW/glfw3.h>
 
-namespace Hazel {
+namespace ZGD {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
@@ -22,7 +22,7 @@ namespace Hazel {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		HZ_CORE_INFO("{0}", e);
+		ZGD_CORE_INFO("{0}", e);
 	}
 
 	void Application::Run()

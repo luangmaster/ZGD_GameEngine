@@ -1,11 +1,11 @@
 #pragma once
 
-#include "hzpch.h"
+#include "zgdpch.h"
 
-#include "Hazel/Core.h"
-#include "Hazel/Events/Event.h"
+#include "ZGD/Core.h"
+#include "ZGD/Events/Event.h"
 
-namespace Hazel {
+namespace ZGD {
 
 	struct WindowProps
 	{
@@ -13,14 +13,14 @@ namespace Hazel {
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProps(const std::string& title = "Hazel Engine",
+		WindowProps(const std::string& title = "ZGD Engine",
 			unsigned int width = 1280,
 			unsigned int height = 720)
 			: Title(title), Width(width), Height(height)
 		{}
 	};
 
-	class HAZEL_API Window
+	class ZGD_API Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

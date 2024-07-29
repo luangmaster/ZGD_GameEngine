@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Hazel/Window.h"
+#include "ZGD/Window.h"
 
 #include <GLFW/glfw3.h>
 
-namespace Hazel {
+namespace ZGD {
 
 	class WindowsWindow : public Window
 	{

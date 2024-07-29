@@ -1,6 +1,6 @@
-#include <Hazel.h>
+#include <ZGD.h>
 
-class Sandbox : public Hazel::Application
+class Sandbox : public ZGD::Application
 {
 public:
 	Sandbox() {
@@ -14,7 +14,7 @@ private:
 
 };
 
-Hazel::Application* Hazel::CreateApplication()
+ZGD::Application* ZGD::CreateApplication()
 {
 	return new Sandbox();
 }

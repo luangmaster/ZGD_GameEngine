@@ -4,9 +4,9 @@
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
 
-namespace Hazel {
+namespace ZGD {
 
-	class HAZEL_API Application
+	class ZGD_API Application
 	{
 	public:
 		Application();

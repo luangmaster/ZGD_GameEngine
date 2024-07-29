@@ -2,9 +2,9 @@
 
 #include "Event.h"
 
-namespace Hazel {
+namespace ZGD {
 
-	class HAZEL_API KeyEvent : public Event
+	class ZGD_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -17,7 +17,7 @@ namespace Hazel {
 		int m_KeyCode;
 	};
 
-	class HAZEL_API KeyPressedEvent : public KeyEvent
+	class ZGD_API KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -37,7 +37,7 @@ namespace Hazel {
 		int m_RepeatCount;
 	};
 
-	class HAZEL_API KeyReleasedEvent : public KeyEvent
+	class ZGD_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)

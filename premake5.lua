@@ -1,4 +1,4 @@
-workspace "Hazel"
+workspace "ZGD"
 	startproject "Sandbox"
     architecture "x64"
     configurations { "Debug", "Release", "Dist"}
@@ -8,21 +8,21 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder
 IncludeDir = {}
-IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+IncludeDir["GLFW"] = "ZGD/vendor/GLFW/include"
 
-include "Hazel/vendor/GLFW"
+include "ZGD/vendor/GLFW"
 
-project "Hazel"
+project "ZGD"
 
-    location "Hazel"
+    location "ZGD"
     kind "SharedLib"
     language "C++"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 	
-	pchheader "hzpch.h"
-	pchsource "Hazel/src/hzpch.cpp"
+	pchheader "zgdpch.h"
+	pchsource "ZGD/src/zgdpch.cpp"
 
     files {
         "%{prj.name}/src/**.h",
@@ -49,8 +49,8 @@ project "Hazel"
 
         defines
         {
-            "HZ_PLATFORM_WINDOWS",
-            "HZ_BUILD_DLL",
+            "ZGD_PLATFORM_WINDOWS",
+            "ZGD_BUILD_DLL",
         }
       
         postbuildcommands
@@ -59,15 +59,15 @@ project "Hazel"
         }
 
     filter { "configurations:Debug" }
-        defines { "HZ_DEBUG" }
+        defines { "ZGD_DEBUG" }
         symbols "On"
 
     filter { "configurations:Release" }
-        defines { "HZ_RELEASE" }
+        defines { "ZGD_RELEASE" }
         optimize "On"
 
     filter { "configurations:Dist" }
-        defines { "HZ_DIST" }
+        defines { "ZGD_DIST" }
         optimize "On"
 
 
@@ -87,13 +87,13 @@ project "Sandbox"
 
     includedirs
     {
-        "Hazel/vendor/spdlog/include",
-        "Hazel/src"
+        "ZGD/vendor/spdlog/include",
+        "ZGD/src"
     }
 
     links
     {
-        "Hazel"
+        "ZGD"
     }
 
     filter { "system:windows" }
@@ -103,17 +103,17 @@ project "Sandbox"
 
         defines
         {
-            "HZ_PLATFORM_WINDOWS",
+            "ZGD_PLATFORM_WINDOWS",
         }
 
     filter { "configurations:Debug" }
-        defines { "HZ_DEBUG" }
+        defines { "ZGD_DEBUG" }
         symbols "On"
 
     filter { "configurations:Release" }
-        defines { "HZ_RELEASE" }
+        defines { "ZGD_RELEASE" }
         optimize "On"
 
     filter { "configurations:Dist" }
-        defines { "HZ_DIST" }
+        defines { "ZGD_DIST" }
         optimize "On"
