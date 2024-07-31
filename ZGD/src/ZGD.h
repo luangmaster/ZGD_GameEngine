@@ -6,6 +6,8 @@
 
 #include "ZGD/Application.h"
 
+#include "ZGD/Layer.h"
+
 #include "ZGD/Log.h"
 
 #include "ZGD/EntryPoint.h"
