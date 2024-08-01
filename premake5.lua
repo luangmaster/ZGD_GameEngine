@@ -9,8 +9,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder
 IncludeDir = {}
 IncludeDir["GLFW"] = "ZGD/vendor/GLFW/include"
+IncludeDir["Glad"] = "ZGD/vendor/Glad/include"
 
 include "ZGD/vendor/GLFW"
+include "ZGD/vendor/Glad"
 
 project "ZGD"
 
@@ -33,12 +35,14 @@ project "ZGD"
     {
         "%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/src",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}"
     }
 	
 	links
 	{
 		"GLFW",
+        "Glad",
 		"opengl32.lib"
 	}
 
@@ -51,6 +55,7 @@ project "ZGD"
         {
             "ZGD_PLATFORM_WINDOWS",
             "ZGD_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
       
         postbuildcommands
