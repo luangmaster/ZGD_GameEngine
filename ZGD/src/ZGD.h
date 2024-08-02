@@ -10,4 +10,6 @@
 
 #include "ZGD/Log.h"
 
+#include "ZGD/ImGui/ImGuiLayer.h"
+
 #include "ZGD/EntryPoint.h"

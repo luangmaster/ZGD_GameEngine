@@ -25,6 +25,7 @@ class Sandbox : public ZGD::Application
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
+		PushOverlay(new ZGD::ImGuiLayer());
 	}
 	~Sandbox() {
 	
