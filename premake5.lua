@@ -21,6 +21,7 @@ project "ZGD"
     location "ZGD"
     kind "SharedLib"
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -52,7 +53,6 @@ project "ZGD"
 
     filter { "system:windows" }
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -69,17 +69,17 @@ project "ZGD"
 
     filter { "configurations:Debug" }
         defines { "ZGD_DEBUG" }
-        buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
 
     filter { "configurations:Release" }
         defines { "ZGD_RELEASE" }
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter { "configurations:Dist" }
         defines { "ZGD_DIST" }
-         buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
 
@@ -88,6 +88,7 @@ project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -110,7 +111,6 @@ project "Sandbox"
 
     filter { "system:windows" }
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -120,15 +120,15 @@ project "Sandbox"
 
     filter { "configurations:Debug" }
         defines { "ZGD_DEBUG" }
-        buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
 
     filter { "configurations:Release" }
         defines { "ZGD_RELEASE" }
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter { "configurations:Dist" }
         defines { "ZGD_DIST" }
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
