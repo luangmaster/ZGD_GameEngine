@@ -5,6 +5,7 @@
 #include "ZGD/LayerStack.h"
 #include "ZGD/Events/Event.h"
 #include "Events/ApplicationEvent.h"
+#include "ZGD/ImGui/ImGuiLayer.h"
 
 namespace ZGD {
 
@@ -28,6 +29,7 @@ namespace ZGD {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		

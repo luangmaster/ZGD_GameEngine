@@ -106,12 +106,13 @@ project "Sandbox"
     {
         "ZGD/vendor/spdlog/include",
         "ZGD/src",
+        "ZGD/vendor",
         "%{IncludeDir.glm}"
     }
 
     links
     {
-        "ZGD"
+        "ZGD",
     }
 
     filter { "system:windows" }
