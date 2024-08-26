@@ -3,6 +3,7 @@
 #include "ZGD/Window.h"
 
 #include <GLFW/glfw3.h>
+#include "ZGD/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -39,5 +40,7 @@ namespace ZGD {
 		};
 
 		WindowData m_Data;
+
+		GraphicsContext* m_Context;
 	};
 }

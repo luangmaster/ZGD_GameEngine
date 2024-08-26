@@ -1,5 +1,5 @@
 workspace "ZGD"
-	startproject "Sandbox"
+    startproject "Sandbox"
     architecture "x64"
     configurations { "Debug", "Release", "Dist"}
 
@@ -20,15 +20,16 @@ include "ZGD/vendor/imgui"
 project "ZGD"
 
     location "ZGD"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
-    staticruntime "off"
+    staticruntime "on"
+    cppdialect "C++17"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
-	pchheader "zgdpch.h"
-	pchsource "ZGD/src/zgdpch.cpp"
+
+    pchheader "zgdpch.h"
+    pchsource "ZGD/src/zgdpch.cpp"
 
     files {
         "%{prj.name}/src/**.h",
@@ -40,30 +41,30 @@ project "ZGD"
     includedirs
     {
         "%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src",
-		"%{IncludeDir.GLFW}",
+        "%{prj.name}/src",
+        "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}"
     }
-	
-	links
-	{
-		"GLFW",
+
+    links
+    {
+        "GLFW",
         "Glad",
         "ImGui",
-		"opengl32.lib"
-	}
+        "opengl32.lib"
+    }
 
     filter { "system:windows" }
-        cppdialect "C++17"
         systemversion "latest"
 
         defines
         {
             "ZGD_PLATFORM_WINDOWS",
             "ZGD_BUILD_DLL",
-            "GLFW_INCLUDE_NONE"
+            "GLFW_INCLUDE_NONE",
+            "USE_CONSTEXPR_FOR_FUNCTIONCALL",
         }
       
         postbuildcommands
@@ -74,17 +75,17 @@ project "ZGD"
     filter { "configurations:Debug" }
         defines { "ZGD_DEBUG" }
         runtime "Debug"
-        symbols "On"
+        symbols "on"
 
     filter { "configurations:Release" }
         defines { "ZGD_RELEASE" }
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter { "configurations:Dist" }
         defines { "ZGD_DIST" }
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
 
 project "Sandbox"
@@ -92,7 +93,8 @@ project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
-    staticruntime "off"
+    staticruntime "on"
+    cppdialect "C++17"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -116,7 +118,6 @@ project "Sandbox"
     }
 
     filter { "system:windows" }
-        cppdialect "C++17"
         systemversion "latest"
 
         defines
@@ -127,14 +128,14 @@ project "Sandbox"
     filter { "configurations:Debug" }
         defines { "ZGD_DEBUG" }
         runtime "Debug"
-        symbols "On"
+        symbols "on"
 
     filter { "configurations:Release" }
         defines { "ZGD_RELEASE" }
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter { "configurations:Dist" }
         defines { "ZGD_DIST" }
         runtime "Release"
-        optimize "On"
+        optimize "on"

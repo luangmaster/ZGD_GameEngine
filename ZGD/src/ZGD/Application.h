@@ -6,6 +6,8 @@
 #include "ZGD/Events/Event.h"
 #include "Events/ApplicationEvent.h"
 #include "ZGD/ImGui/ImGuiLayer.h"
+#include "ZGD/Renderer/Shader.h"
+#include "ZGD/Renderer/Buffer.h"
 
 namespace ZGD {
 
@@ -32,7 +34,12 @@ namespace ZGD {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-		
+
+		unsigned int m_VertexArray;
+		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+
 		static Application* s_Instance;
 	};
 

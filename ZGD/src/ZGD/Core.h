@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef ZGD_PLATFORM_WINDOWS
-	#ifdef ZGD_BUILD_DLL
-		#define ZGD_API __declspec(dllexport)
+	#ifdef ZGD_DYNAMIC_LINK
+		#ifdef ZGD_BUILD_DLL
+			#define ZGD_API __declspec(dllexport)
+		#else
+			#define ZGD_API __declspec(dllimport)
+		#endif // ZGD_BUILD_DLL
 	#else
-		#define ZGD_API __declspec(dllimport)
-	#endif // ZGD_BUILD_DLL
+		#define ZGD_API
+	#endif
 #else
 	#error ZGD only support windows!
 #endif // ZGD_PLATFORM_WINDOWS
