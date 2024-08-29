@@ -65,9 +65,9 @@ namespace ZGD {
 			case ZGD::ShaderDataType::Float4:
 				return 4;
 			case ZGD::ShaderDataType::Mat3:
-				return 3 * 3;
+				return 3;
 			case ZGD::ShaderDataType::Mat4:
-				return 4 * 4;
+				return 4;
 			case ZGD::ShaderDataType::Int:
 				return 1;
 			case ZGD::ShaderDataType::Int2:
