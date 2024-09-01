@@ -16,4 +16,14 @@
 
 #include "ZGD/ImGui/ImGuiLayer.h"
 
+// ---------Renderer-----------
+#include "ZGD/Renderer/Renderer.h"
+#include "ZGD/Renderer/RenderCommand.h"
+
+#include "ZGD/Renderer/Buffer.h"
+#include "ZGD/Renderer/Shader.h"
+#include "ZGD/Renderer/VertexArray.h"
+
+#include "ZGD/Renderer/OrthographicCamera.h"
+
 #include "ZGD/EntryPoint.h"
