@@ -11,9 +11,9 @@ namespace ZGD {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None:
+			case RendererAPI::API::None:
 				ZGD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");  return nullptr;
-			case RendererAPI::OpenGL:
+			case RendererAPI::API::OpenGL:
 				return new OpenGLVertexBuffer(vertices, size);
 		}
 		
@@ -26,10 +26,10 @@ namespace ZGD {
 	{
 		 switch (Renderer::GetAPI())
 		 {
-		 case RendererAPI::None:
-			 ZGD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");  return nullptr;
-		 case RendererAPI::OpenGL:
-			 return new OpenGLIndexBuffer(indices, count);
+			case RendererAPI::API::None:
+				ZGD_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");  return nullptr;
+			case RendererAPI::API::OpenGL:
+				return new OpenGLIndexBuffer(indices, count);
 		 }
 
 		 ZGD_CORE_ASSERT(false, "Unknown RendererAPI!");

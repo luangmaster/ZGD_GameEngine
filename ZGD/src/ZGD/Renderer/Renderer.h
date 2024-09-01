@@ -1,23 +1,16 @@
 #pragma once
 
+#include "RenderCommand.h"
 namespace ZGD {
 
-	enum class RendererAPI
+	class Renderer
 	{
-		None = 0,
-		OpenGL = 1,
-		DirectX = 2,
-	};
-
-	class Renderer {
-
 	public:
+		static void BeginScene();
+		static void EndScene();
 
-		inline static RendererAPI GetAPI() { return m_RendererAPI; };
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
 
-	private:
-		static RendererAPI m_RendererAPI;
-		
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
-
 }

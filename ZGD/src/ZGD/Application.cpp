@@ -2,33 +2,10 @@
 #include "Application.h"
 #include "Events/ApplicationEvent.h"
 
-#include <glad/glad.h>
+#include "ZGD/Renderer/Renderer.h"
 #include "Input.h"
 
-#define GLCALL(x) do {\
-					GLClearError();\
-					x;\
-					ZGD_CORE_ASSERT(GLLogCall(#x, __FILE__, __LINE__), "error!!!");\
-				} while (0);
-
-//#define GLCALL(x) do{x;} while(0);
-
 namespace ZGD {
-
-	static void GLClearError()
-	{
-		while (glGetError() != GL_NO_ERROR);
-	}
-
-	static bool GLLogCall(const char* function, const char* file, int line)
-	{
-		while (GLenum error = glGetError())
-		{
-			ZGD_CORE_INFO("GLLogCall error:{0} {1} {2} {3}", error, function, file, line);
-			return false;
-		}
-		return true;
-	}
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
@@ -181,18 +158,21 @@ namespace ZGD {
 	{
 		while (m_Running)
 		{
-			glClearColor(GLfloat(0.1), GLfloat(0.1), GLfloat(0.1), 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			//glClearColor(GLfloat(0.1), GLfloat(0.1), GLfloat(0.1), 1);
+			//glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+			RenderCommand::Clear();
 
+			Renderer::BeginScene();
 			// 先渲染正方形
 			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_SquareVA);
 
 			// 切换va，再渲染一个三角形
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
