@@ -12,6 +12,7 @@ namespace ZGD {
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
+		: m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		ZGD_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
@@ -73,6 +74,8 @@ namespace ZGD {
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
 			out vec4 v_Color;
 
@@ -80,7 +83,7 @@ namespace ZGD {
 			{
 				v_Position = a_Position+0.5;
 				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 
 		)";
@@ -106,11 +109,12 @@ namespace ZGD {
 		std::string blueShaderVertexSrc = R"(
 			#version 330 core
 			layout(location = 0) in vec3 a_Position;
+			uniform mat4 u_ViewProjection;
 			out vec3 v_Position;
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -163,14 +167,14 @@ namespace ZGD {
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();
+			m_Camera.SetPosition({ 0.5f, 0.5f, 0.0f });
+			m_Camera.SetRotation(45.0f);
+			Renderer::BeginScene(m_Camera);
 			// 先渲染正方形
-			m_BlueShader->Bind();
-			Renderer::Submit(m_SquareVA);
+			Renderer::Submit(m_BlueShader, m_SquareVA);
 
 			// 切换va，再渲染一个三角形
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
+			Renderer::Submit(m_Shader, m_VertexArray);
 
 			Renderer::EndScene();
 

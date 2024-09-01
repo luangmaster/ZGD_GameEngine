@@ -9,6 +9,7 @@
 #include "ZGD/Renderer/Shader.h"
 #include "ZGD/Renderer/Buffer.h"
 #include "ZGD/Renderer/VertexArray.h"
+#include "ZGD/Renderer/OrthographicCamera.h"
 
 namespace ZGD {
 
@@ -41,6 +42,8 @@ namespace ZGD {
 
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;
+
+		OrthographicCamera m_Camera;
 
 		static Application* s_Instance;
 	};
