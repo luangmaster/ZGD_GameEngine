@@ -2,6 +2,7 @@
 
 #include "ZGD/Core.h"
 #include "ZGD/Events/Event.h"
+#include "ZGD/Core/TimeStep.h"
 
 namespace ZGD {
 
@@ -13,7 +14,7 @@ namespace ZGD {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(TimeStep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

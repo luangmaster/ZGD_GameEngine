@@ -14,6 +14,8 @@
 
 #include "ZGD/Log.h"
 
+#include "ZGD/Core/TimeStep.h"
+
 #include "ZGD/ImGui/ImGuiLayer.h"
 
 // ---------Renderer-----------

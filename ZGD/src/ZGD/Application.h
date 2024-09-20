@@ -10,10 +10,11 @@
 #include "ZGD/Renderer/Buffer.h"
 #include "ZGD/Renderer/VertexArray.h"
 #include "ZGD/Renderer/OrthographicCamera.h"
+#include "ZGD/Core/TimeStep.h"
 
 namespace ZGD {
 
-	class ZGD_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -31,12 +32,14 @@ namespace ZGD {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
-
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
+		TimeStep m_Timestep;
+		float m_LastFrameTime = 0.0f;
+	private:
 		static Application* s_Instance;
 	};
 
