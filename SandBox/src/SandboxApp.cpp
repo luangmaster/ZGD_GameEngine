@@ -1,8 +1,11 @@
 #include <ZGD.h>
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public ZGD::Layer
 {
@@ -92,9 +95,9 @@ public:
 
 		)";
 
-		m_Shader.reset(new ZGD::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(ZGD::Shader::Create(vertexSrc, fragmentSrc));
 
-		std::string blueShaderVertexSrc = R"(
+		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 			layout(location = 0) in vec3 a_Position;
 			uniform mat4 u_ViewProjection;
@@ -107,7 +110,7 @@ public:
 			}
 		)";
 
-		std::string blueShaderFragmentSrc = R"(
+		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
 			layout(location = 0) out vec4 color;
 			in vec3 v_Position;
@@ -116,7 +119,7 @@ public:
 				color = vec4(0.2, 0.3, 0.8, 1.0);
 			}
 		)";
-		m_BlueShader.reset(new ZGD::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		m_FlatColorShader.reset(ZGD::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 	}
 
 	void OnUpdate(ZGD::TimeStep ts) override
@@ -164,7 +167,7 @@ public:
 			{
 				glm::vec3 pos(x * 0.11f-1.3, y * 0.11f-0.75, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				ZGD::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+				ZGD::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 			}
 		}
 
@@ -198,7 +201,7 @@ private:
 	std::shared_ptr<ZGD::Shader> m_Shader;
 	std::shared_ptr<ZGD::VertexArray> m_VertexArray;
 
-	std::shared_ptr<ZGD::Shader> m_BlueShader;
+	std::shared_ptr<ZGD::Shader> m_FlatColorShader;
 	std::shared_ptr<ZGD::VertexArray> m_SquareVA;
 
 	ZGD::OrthographicCamera m_Camera;
