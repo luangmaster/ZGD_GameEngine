@@ -20,7 +20,7 @@ public:
 			0.5f, -0.5f, 0.0f,  0.2f, 0.3f, 0.8f, 1.0f,
 			0.0f, 0.5f, 0.0f,   0.8f, 0.8f, 0.2f, 1.0f,
 		};
-		std::shared_ptr<ZGD::VertexBuffer> vertexBuffer;
+		ZGD::Ref<ZGD::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(ZGD::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		ZGD::BufferLayout layout = {
@@ -32,7 +32,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3] = { 0, 1, 2 };
-		std::shared_ptr<ZGD::IndexBuffer> indexBuffer;
+		ZGD::Ref<ZGD::IndexBuffer> indexBuffer;
 		indexBuffer.reset(ZGD::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -46,7 +46,7 @@ public:
 			-0.5f,  0.5f, 0.0f
 		};
 
-		std::shared_ptr<ZGD::VertexBuffer> squareVB;
+		ZGD::Ref<ZGD::VertexBuffer> squareVB;
 		squareVB.reset(ZGD::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
 			{ ZGD::ShaderDataType::Float3, "a_Position" }
@@ -54,7 +54,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<ZGD::IndexBuffer> squareIB;
+		ZGD::Ref<ZGD::IndexBuffer> squareIB;
 		squareIB.reset(ZGD::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -201,11 +201,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<ZGD::Shader> m_Shader;
-	std::shared_ptr<ZGD::VertexArray> m_VertexArray;
+	ZGD::Ref<ZGD::Shader> m_Shader;
+	ZGD::Ref<ZGD::VertexArray> m_VertexArray;
 
-	std::shared_ptr<ZGD::Shader> m_FlatColorShader;
-	std::shared_ptr<ZGD::VertexArray> m_SquareVA;
+	ZGD::Ref<ZGD::Shader> m_FlatColorShader;
+	ZGD::Ref<ZGD::VertexArray> m_SquareVA;
 
 	ZGD::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
