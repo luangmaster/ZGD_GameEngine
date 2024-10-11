@@ -24,6 +24,7 @@
 
 #include "ZGD/Renderer/Buffer.h"
 #include "ZGD/Renderer/Shader.h"
+#include "ZGD/Renderer/Texture.h"
 #include "ZGD/Renderer/VertexArray.h"
 
 #include "ZGD/Renderer/OrthographicCamera.h"

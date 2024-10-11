@@ -39,17 +39,18 @@ public:
 		// 再创建一个渲染正方形的vertexArray
 		m_SquareVA.reset(ZGD::VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
 		};
 
 		ZGD::Ref<ZGD::VertexBuffer> squareVB;
 		squareVB.reset(ZGD::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ ZGD::ShaderDataType::Float3, "a_Position" }
+			{ ZGD::ShaderDataType::Float3, "a_Position" },
+			{ ZGD::ShaderDataType::Float2, "a_TexCoord" }
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
@@ -121,6 +122,35 @@ public:
 			}
 		)";
 		m_FlatColorShader.reset(ZGD::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			out vec2 v_TexCoord;
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+			layout(location = 0) out vec4 color;
+			in vec2 v_TexCoord;
+			uniform sampler2D u_Texture;
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+		m_TextureShader.reset(ZGD::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		m_Texture = ZGD::Texture2D::Create("assets/textures/Checkerboard.png");
+		std::dynamic_pointer_cast<ZGD::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<ZGD::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(ZGD::TimeStep ts) override
@@ -174,11 +204,14 @@ public:
 			}
 		}
 
-		glm::mat4 scale1 = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition) * scale1;
-
-		ZGD::Renderer::Submit(m_Shader, m_VertexArray, transform);
-
+		//ZGD::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		
+		//glm::mat4 scale1 = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition) * scale1;
+		// Triangle
+		//ZGD::Renderer::Submit(m_Shader, m_VertexArray, transform);
+		m_Texture->Bind();
+		ZGD::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		ZGD::Renderer::EndScene();
 	}
 
@@ -204,8 +237,9 @@ private:
 	ZGD::Ref<ZGD::Shader> m_Shader;
 	ZGD::Ref<ZGD::VertexArray> m_VertexArray;
 
-	ZGD::Ref<ZGD::Shader> m_FlatColorShader;
+	ZGD::Ref<ZGD::Shader> m_FlatColorShader,m_TextureShader;
 	ZGD::Ref<ZGD::VertexArray> m_SquareVA;
+	ZGD::Ref<ZGD::Texture2D> m_Texture;
 
 	ZGD::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

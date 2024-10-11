@@ -12,6 +12,7 @@ IncludeDir["GLFW"] = "ZGD/vendor/GLFW/include"
 IncludeDir["Glad"] = "ZGD/vendor/Glad/include"
 IncludeDir["ImGui"] = "ZGD/vendor/imgui"
 IncludeDir["glm"] = "ZGD/vendor/glm"
+IncludeDir["stb_image"] = "ZGD/vendor/stb_image"
 
 include "ZGD/vendor/GLFW"
 include "ZGD/vendor/Glad"
@@ -34,6 +35,8 @@ project "ZGD"
     files {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl",
     }
@@ -45,7 +48,8 @@ project "ZGD"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
     }
 
     links
