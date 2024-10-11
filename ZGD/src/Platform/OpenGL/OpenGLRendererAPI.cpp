@@ -13,6 +13,7 @@
 
 namespace ZGD {
 
+
 	static void GLClearError()
 	{
 		while (glGetError() != GL_NO_ERROR);
@@ -26,6 +27,10 @@ namespace ZGD {
 			return false;
 		}
 		return true;
+	}
+	void OpenGLRendererAPI::Init() {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color)

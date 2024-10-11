@@ -149,6 +149,7 @@ public:
 		)";
 		m_TextureShader.reset(ZGD::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 		m_Texture = ZGD::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_ChernoLogoTexture = ZGD::Texture2D::Create("assets/textures/ChernoLogo.png");
 		std::dynamic_pointer_cast<ZGD::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<ZGD::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
@@ -212,6 +213,9 @@ public:
 		//ZGD::Renderer::Submit(m_Shader, m_VertexArray, transform);
 		m_Texture->Bind();
 		ZGD::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		m_ChernoLogoTexture->Bind();
+		ZGD::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		ZGD::Renderer::EndScene();
 	}
 
@@ -239,7 +243,7 @@ private:
 
 	ZGD::Ref<ZGD::Shader> m_FlatColorShader,m_TextureShader;
 	ZGD::Ref<ZGD::VertexArray> m_SquareVA;
-	ZGD::Ref<ZGD::Texture2D> m_Texture;
+	ZGD::Ref<ZGD::Texture2D> m_Texture, m_ChernoLogoTexture;
 
 	ZGD::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
