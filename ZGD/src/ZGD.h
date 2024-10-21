@@ -9,6 +9,7 @@
 #include "ZGD/Input.h"
 #include "ZGD/KeyCodes.h"
 #include "ZGD/MouseButtonCodes.h"
+#include "ZGD/OrthographicCameraController.h"
 
 #include "ZGD/Layer.h"
 
