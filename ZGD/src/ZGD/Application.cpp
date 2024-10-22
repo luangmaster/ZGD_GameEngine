@@ -46,6 +46,7 @@ namespace ZGD {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -63,8 +64,12 @@ namespace ZGD {
 			TimeStep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
+
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
@@ -78,5 +83,19 @@ namespace ZGD {
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
 	}
 }
