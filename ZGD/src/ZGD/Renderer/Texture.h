@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "ZGD/Core.h"
+#include "ZGD/Core/Core.h"
 
 namespace ZGD {
 	class  Texture

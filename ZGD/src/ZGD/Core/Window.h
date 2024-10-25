@@ -2,7 +2,7 @@
 
 #include "zgdpch.h"
 
-#include "ZGD/Core.h"
+#include "ZGD/Core/Core.h"
 #include "ZGD/Events/Event.h"
 
 namespace ZGD {

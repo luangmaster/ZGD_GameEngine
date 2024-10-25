@@ -1,7 +1,7 @@
 #include "zgdpch.h"
 #include "WindowsInput.h"
 
-#include "ZGD/Application.h"
+#include "ZGD/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace ZGD {

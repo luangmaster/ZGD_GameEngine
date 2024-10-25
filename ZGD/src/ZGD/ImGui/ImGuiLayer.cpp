@@ -8,7 +8,7 @@
 #include "GLFW/glfw3.h"
 #include <glad/glad.h>
 
-#include "ZGD/Application.h"
+#include "ZGD/Core/Application.h"
 
 namespace ZGD {
 

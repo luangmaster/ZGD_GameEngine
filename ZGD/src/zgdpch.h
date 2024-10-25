@@ -14,7 +14,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "ZGD/Log.h"
+#include "ZGD/Core/Log.h"
 
 #ifdef ZGD_PLATFORM_WINDOWS
 	#include <Windows.h>

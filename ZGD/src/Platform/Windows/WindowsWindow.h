@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ZGD/Window.h"
+#include "ZGD/Core/Window.h"
 
 #include <GLFW/glfw3.h>
 #include "ZGD/Renderer/GraphicsContext.h"

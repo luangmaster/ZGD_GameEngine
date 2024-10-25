@@ -1,8 +1,8 @@
 #include "zgdpch.h"
 #include "OrthographicCameraController.h"
 
-#include "ZGD/Input.h"
-#include "ZGD/KeyCodes.h"
+#include "ZGD/Core/Input.h"
+#include "ZGD/Core/KeyCodes.h"
 
 namespace ZGD {
 

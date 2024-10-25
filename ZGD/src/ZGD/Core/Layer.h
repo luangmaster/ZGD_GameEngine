@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ZGD/Core.h"
+#include "ZGD/Core/Core.h"
 #include "ZGD/Events/Event.h"
 #include "ZGD/Core/TimeStep.h"
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "zgdpch.h"
-#include "ZGD/Core.h"
+#include "ZGD/Core/Core.h"
 
 namespace ZGD {
 	enum class EventType

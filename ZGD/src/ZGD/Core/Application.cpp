@@ -1,6 +1,6 @@
 #include "zgdpch.h"
 #include "Application.h"
-#include "Events/ApplicationEvent.h"
+#include "ZGD/Events/ApplicationEvent.h"
 
 #include "ZGD/Renderer/Renderer.h"
 #include "Input.h"

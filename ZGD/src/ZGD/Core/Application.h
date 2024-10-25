@@ -2,9 +2,9 @@
 
 #include "Core.h"
 #include "Window.h"
-#include "ZGD/LayerStack.h"
+#include "ZGD/Core/LayerStack.h"
 #include "ZGD/Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "ZGD/Events/ApplicationEvent.h"
 #include "ZGD/ImGui/ImGuiLayer.h"
 #include "ZGD/Renderer/Shader.h"
 #include "ZGD/Renderer/Buffer.h"

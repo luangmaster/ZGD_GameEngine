@@ -4,16 +4,16 @@
 
 #include "stdio.h"
 
-#include "ZGD/Application.h"
+#include "ZGD/Core/Application.h"
 
-#include "ZGD/Input.h"
-#include "ZGD/KeyCodes.h"
-#include "ZGD/MouseButtonCodes.h"
-#include "ZGD/OrthographicCameraController.h"
+#include "ZGD/Core/Input.h"
+#include "ZGD/Core/KeyCodes.h"
+#include "ZGD/Core/MouseButtonCodes.h"
+#include "ZGD/Renderer/OrthographicCameraController.h"
 
-#include "ZGD/Layer.h"
+#include "ZGD/Core/Layer.h"
 
-#include "ZGD/Log.h"
+#include "ZGD/Core/Log.h"
 
 #include "ZGD/Core/TimeStep.h"
 
@@ -30,4 +30,4 @@
 
 #include "ZGD/Renderer/OrthographicCamera.h"
 
-#include "ZGD/EntryPoint.h"
+#include "ZGD/Core/EntryPoint.h"
