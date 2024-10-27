@@ -21,6 +21,7 @@
 
 // ---------Renderer-----------
 #include "ZGD/Renderer/Renderer.h"
+#include "ZGD/Renderer/Renderer2D.h"
 #include "ZGD/Renderer/RenderCommand.h"
 
 #include "ZGD/Renderer/Buffer.h"
