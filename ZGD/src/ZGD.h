@@ -29,5 +29,3 @@
 #include "ZGD/Renderer/VertexArray.h"
 
 #include "ZGD/Renderer/OrthographicCamera.h"
-
-#include "ZGD/Core/EntryPoint.h"
