@@ -15,6 +15,7 @@
 #include <unordered_set>
 
 #include "ZGD/Core/Log.h"
+#include "ZGD/Debug/Instrumentor.h"
 
 #ifdef ZGD_PLATFORM_WINDOWS
 	#include <Windows.h>
