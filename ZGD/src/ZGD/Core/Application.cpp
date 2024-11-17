@@ -15,6 +15,8 @@ namespace ZGD {
 
 	Application::Application()
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		ZGD_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
@@ -28,22 +30,31 @@ namespace ZGD {
 	}
 	Application::~Application()
 	{
+		ZGD_PROFILE_FUNCTION();
+
+		Renderer::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
@@ -58,22 +69,37 @@ namespace ZGD {
 
 	void Application::Run()
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			ZGD_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)glfwGetTime(); // Platform:GetTime
 			TimeStep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
-			}
+				{
+					ZGD_PROFILE_SCOPE("LayerStack Onupdate");
 
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
+
+				
+				m_ImGuiLayer->Begin();
+				{
+					ZGD_PROFILE_SCOPE("LayerStack OnImGuiRender");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+				}
+				m_ImGuiLayer->End();
+				
+			}
+			
 
 			m_Window->OnUpdate();
 		}
@@ -87,6 +113,8 @@ namespace ZGD {
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;

@@ -13,6 +13,8 @@ namespace ZGD {
 
 	void ZGD::OpenGLContext::Init()
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		ZGD_CORE_ASSERT(status, "Failed to initailize Glad!");
@@ -25,6 +27,7 @@ namespace ZGD {
 
 	void ZGD::OpenGLContext::SwapBuffers()
 	{
+		ZGD_PROFILE_FUNCTION();
 		glfwSwapBuffers(m_WindowHandle);
 	}
 }

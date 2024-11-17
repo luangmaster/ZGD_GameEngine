@@ -13,6 +13,8 @@ namespace ZGD {
 
 	void OrthographicCameraController::OnUpdate(TimeStep ts)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		if (Input::IsKeyPressed(ZGD_KEY_A))
 			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
 		else if (Input::IsKeyPressed(ZGD_KEY_D))
@@ -53,6 +55,8 @@ namespace ZGD {
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= e.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
@@ -61,6 +65,7 @@ namespace ZGD {
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
+		ZGD_PROFILE_FUNCTION();
 
 		OnResize((float)e.GetWidth(), (float)e.GetHeight());
 		return false;

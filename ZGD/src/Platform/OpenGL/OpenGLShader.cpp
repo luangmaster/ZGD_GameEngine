@@ -18,6 +18,8 @@ namespace ZGD {
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		std::string source = ReadFile(filepath);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
@@ -33,6 +35,8 @@ namespace ZGD {
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		:m_Name(name)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexSrc;
 		shaderSources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -41,31 +45,43 @@ namespace ZGD {
 
 	OpenGLShader::~OpenGLShader()
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Bind() const
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::UnBind() const
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 
 	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		UploadUniformInt(name, value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		UploadUniformFloat3(name, value);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		UploadUniformFloat4(name, value);
 	}
 
@@ -117,6 +133,8 @@ namespace ZGD {
 	}
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
@@ -135,6 +153,8 @@ namespace ZGD {
 	}
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -156,6 +176,8 @@ namespace ZGD {
 	}
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string> shaderSources)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		GLuint program = glCreateProgram();
 		ZGD_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
 		std::array<GLenum, 2> glShaderIDs;

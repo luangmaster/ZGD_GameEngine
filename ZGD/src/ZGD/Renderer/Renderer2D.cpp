@@ -20,6 +20,8 @@ namespace ZGD {
 
 	void Renderer2D::Init()
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DStorage();
 		s_Data->QuadVertexArray = ZGD::VertexArray::Create();
 
@@ -54,17 +56,22 @@ namespace ZGD {
 
 	void Renderer2D::Shutdown()
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
 	{
+		ZGD_PROFILE_FUNCTION();
 
 	}
 
@@ -75,6 +82,8 @@ namespace ZGD {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 
@@ -92,6 +101,8 @@ namespace ZGD {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		ZGD_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
 		texture->Bind();
 
