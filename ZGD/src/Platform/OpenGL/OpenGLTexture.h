@@ -12,6 +12,8 @@ namespace ZGD {
 		virtual uint32_t GetHeight() const override { return m_Height; }
 		virtual void SetData(void* data, uint32_t size) override;
 		virtual void Bind(uint32_t slot = 0) const override;
+		virtual bool operator==(const Texture& other) const override;
+
 	private:
 		std::string m_Path;
 		uint32_t m_Width, m_Height;

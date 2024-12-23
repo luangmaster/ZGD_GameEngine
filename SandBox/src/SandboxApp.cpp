@@ -23,8 +23,7 @@ public:
 			0.5f, -0.5f, 0.0f,  0.2f, 0.3f, 0.8f, 1.0f,
 			0.0f, 0.5f, 0.0f,   0.8f, 0.8f, 0.2f, 1.0f,
 		};
-		ZGD::Ref<ZGD::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(ZGD::VertexBuffer::Create(vertices, sizeof(vertices)));
+		ZGD::Ref<ZGD::VertexBuffer> vertexBuffer = ZGD::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		ZGD::BufferLayout layout = {
 			{ZGD::ShaderDataType::Float3, "a_Position"},
@@ -35,8 +34,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3] = { 0, 1, 2 };
-		ZGD::Ref<ZGD::IndexBuffer> indexBuffer;
-		indexBuffer.reset(ZGD::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		ZGD::Ref<ZGD::IndexBuffer> indexBuffer = ZGD::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		// 再创建一个渲染正方形的vertexArray
@@ -49,8 +47,7 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
 		};
 
-		ZGD::Ref<ZGD::VertexBuffer> squareVB;
-		squareVB.reset(ZGD::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		ZGD::Ref<ZGD::VertexBuffer> squareVB = ZGD::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
 			{ ZGD::ShaderDataType::Float3, "a_Position" },
 			{ ZGD::ShaderDataType::Float2, "a_TexCoord" }
@@ -58,8 +55,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		ZGD::Ref<ZGD::IndexBuffer> squareIB;
-		squareIB.reset(ZGD::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		ZGD::Ref<ZGD::IndexBuffer> squareIB = ZGD::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(

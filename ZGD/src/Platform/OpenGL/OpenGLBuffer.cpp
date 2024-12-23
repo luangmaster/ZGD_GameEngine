@@ -3,6 +3,15 @@
 #include "glad/glad.h"
 
 namespace ZGD {
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+	{
+		ZGD_PROFILE_FUNCTION();
+
+		glCreateBuffers(1, &m_VertexBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+
+	}
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
 		ZGD_PROFILE_FUNCTION();
@@ -28,6 +37,12 @@ namespace ZGD {
 		ZGD_PROFILE_FUNCTION();
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 
 	/// IndexBuffer
