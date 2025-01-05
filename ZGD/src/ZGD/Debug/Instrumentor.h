@@ -122,7 +122,7 @@ namespace ZGD {
 	};
 }
 
-#define ZGD_PROFILE 1
+#define ZGD_PROFILE 0
 #if ZGD_PROFILE
 #define ZGD_PROFILE_BEGIN_SESSION(name, filepath) ::ZGD::Instrumentor::Get().BeginSession(name, filepath)
 #define ZGD_PROFILE_END_SESSION() ::ZGD::Instrumentor::Get().EndSession()
