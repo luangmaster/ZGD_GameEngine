@@ -26,6 +26,9 @@ private:
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
+	uint32_t m_MapWidth, m_MapHeight;
+	std::unordered_map<char, ZGD::Ref<ZGD::SubTexture2D>> s_TextureMap;
+
 	ParticleSystem m_ParticleSystem;
 	ParticleProps m_Particle;
 };
