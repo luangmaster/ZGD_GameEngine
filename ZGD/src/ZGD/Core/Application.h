@@ -17,7 +17,7 @@ namespace ZGD {
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "ZGD App");
 		virtual~Application();
 
 		void Run();
@@ -27,6 +27,8 @@ namespace ZGD {
 		void PushOverlay(Layer* layer);
 	
 		inline Window& GetWindow() { return *m_Window; }
+
+		void Close();
 
 		inline static Application& Get() { return *s_Instance; }
 

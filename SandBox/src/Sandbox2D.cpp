@@ -32,6 +32,7 @@ void Sandbox2D::OnAttach()
 	ZGD_PROFILE_FUNCTION();
 
 	m_CheckerboardTexture = ZGD::Texture2D::Create("assets/textures/Checkerboard.png");
+
 	m_SpriteSheet = ZGD::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
 	m_TextureStairs = ZGD::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, {128, 128});
 	m_TextureBarrel = ZGD::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 8, 2 }, {128, 128 });
@@ -158,7 +159,6 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-
 	ImGui::End();
 }
 
