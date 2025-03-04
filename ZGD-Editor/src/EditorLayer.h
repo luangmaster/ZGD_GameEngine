@@ -33,5 +33,6 @@ namespace ZGD {
 		std::unordered_map<char, ZGD::Ref<ZGD::SubTexture2D>> s_TextureMap;
 
 		glm::vec2 m_ViewportSize = {0.0f, 0.0f};
+		bool m_ViewportFocused = false, m_ViewportHovered = false;
 	};
 }

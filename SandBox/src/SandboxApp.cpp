@@ -202,14 +202,6 @@ public:
 	void OnEvent(ZGD::Event& event) override
 	{
 		m_CameraController.OnEvent(event);
-		
-		/*	ZGD_TRACE("{0}", event);*/
-		if (event.GetEventType() == ZGD::EventType::KeyPressed) {
-			ZGD::KeyPressedEvent& e = (ZGD::KeyPressedEvent&)event;
-			if (e.GetKeyCode() == ZGD_KEY_TAB)
-				ZGD_TRACE("Tab key is pressed (event)!");
-			ZGD_TRACE("{0}", (char)e.GetKeyCode());
-		}
 	}
 
 private:

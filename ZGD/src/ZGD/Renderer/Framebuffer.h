@@ -1,4 +1,4 @@
-	#pragma once
+#pragma once
 
 #include "ZGD/Core/Core.h"
 
@@ -16,6 +16,8 @@ namespace ZGD {
 	class Framebuffer
 	{
 	public:
+		virtual ~Framebuffer() = default;
+
 		virtual void Bind() = 0;
 		virtual void UnBind() = 0;
 
