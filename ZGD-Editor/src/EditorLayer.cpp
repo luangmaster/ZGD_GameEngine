@@ -4,27 +4,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-static const uint32_t s_MapWidth = 24;
-static const char* s_MapTiles =
-"WWWWWWWWWWWWWWWWWWWWWWWW"
-"WWWWWWWDDDDDDWWWWWWWWWWW"
-"WWWWWDDDDDDDDDDDWWWWWWWW"
-"WWWWDDDDDDDDDDDDDCDWWWWW"
-"WWWDDDDDDDDDDDDDDDDDDWWW"
-"WWDDDDWWWDDDDDDDDDDDDWWW"
-"WDDDDDWWWDDDDDDDDDDDDDWW"
-"WWDDDDDDDDDDDDDDDDDDDWWW"
-"WWWWDDDDDDDDDDDDDDDDWWWW"
-"WWWWWDDDDDDDDDDDDDWWWWWW"
-"WWWWWWDDDDDDDDDDDWWWWWWW"
-"WWWWWWWDDDDDDDDDWWWWWWWW"
-"WWWWWWWWWWDDDDWWWWWWWWWW"
-"WWWWWWWWWWWWWWWWWWWWWWWW";
-
-
 namespace ZGD {
 	EditorLayer::EditorLayer()
-		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f)
+		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f), m_SquareColor({ 0.2f, 0.3f, 0.8f, 1.0f })
 	{
 	}
 
@@ -39,18 +21,13 @@ namespace ZGD {
 		fbspec.Height = 720;
 		m_Framebuffer = Framebuffer::Create(fbspec);
 
-		m_SpriteSheet = ZGD::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
-		m_TextureStairs = ZGD::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128, 128 });
-		m_TextureBarrel = ZGD::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 8, 2 }, { 128, 128 });
-		m_TextureTree = ZGD::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128, 128 }, { 1, 2 });
+		m_ActiveScene = CreateRef<Scene>();
 
-		s_TextureMap['D'] = ZGD::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6, 11 }, { 128, 128 });
-		s_TextureMap['W'] = ZGD::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 11, 11 }, { 128, 128 });
+		// Entity
+		auto square = m_ActiveScene->CreateEntity("Green Square");
+		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 
-		m_MapWidth = s_MapWidth;
-		m_MapHeight = strlen(s_MapTiles) / s_MapWidth;
-
-		m_CameraController.SetZoomLevel(5.0f);
+		m_SquareEntity = square;
 	}
 
 	void EditorLayer::OnDetach()
@@ -78,61 +55,14 @@ namespace ZGD {
 
 		// Render
 		ZGD::Renderer2D::ResetStats();
-		{
-			ZGD_PROFILE_SCOPE("Renderer Prep");
-			m_Framebuffer->Bind();
-			ZGD::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-			ZGD::RenderCommand::Clear();
-		}
+		m_Framebuffer->Bind();
+		ZGD::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		ZGD::RenderCommand::Clear();
 
-#if 0
-		{
-			static float rotation = 0.0f;
-			rotation += ts * 50.0f;
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-			ZGD_PROFILE_SCOPE("Renderer Draw");
-			ZGD::Renderer2D::BeginScene(m_CameraController.GetCamera());
-			ZGD::Renderer2D::DrawRotatedQuad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, -30.0f, { 0.8f, 0.2f, 0.3f, 1.0f });   //红
-			//ZGD::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-			ZGD::Renderer2D::DrawQuad({ 0.5f , -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f }); //蓝
-			ZGD::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture, 10.0f);
-			//ZGD::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, rotation, m_CheckerboardTexture, 2.0f);
-			ZGD::Renderer2D::EndScene();
+		m_ActiveScene->OnUpdate(ts);
 
-			ZGD::Renderer2D::BeginScene(m_CameraController.GetCamera());
-			for (float y = -5.0f; y < 5.0f; y += 0.5f)
-			{
-				for (float x = -5.0f; x < 5.0f; x += 0.5f)
-				{
-					glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
-					ZGD::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
-				}
-			}
-			ZGD::Renderer2D::EndScene();
-		}
-#endif
-
-		ZGD::Renderer2D::BeginScene(m_CameraController.GetCamera());
-
-		for (uint32_t y = 0; y < m_MapHeight; y++)
-		{
-			for (uint32_t x = 0; x < m_MapWidth; x++)
-			{
-				char tileType = s_MapTiles[x + y * m_MapWidth];
-				ZGD::Ref<ZGD::SubTexture2D> texture;
-				if (s_TextureMap.find(tileType) != s_TextureMap.end())
-					texture = s_TextureMap[tileType];
-				else
-					texture = m_TextureStairs;
-
-				ZGD::Renderer2D::DrawQuad({ x - m_MapWidth / 2.0f, y - m_MapHeight / 2.0f, 0.5f }, { 1.0f, 1.0f }, texture);
-			}
-		}
-
-
-		//ZGD::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureStairs);
-		//ZGD::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureBarrel);
-		//ZGD::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.5f }, { 1.0f, 2.0f }, m_TextureTree);
 		ZGD::Renderer2D::EndScene();
 		m_Framebuffer->UnBind();
 	}
@@ -213,7 +143,16 @@ namespace ZGD {
 			ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 			ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-			ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+			if (m_SquareEntity)
+			{
+				ImGui::Separator();
+				auto& tag = m_SquareEntity.GetComponent<TagComponent>().Tag;
+				ImGui::Text("%s", tag.c_str());
+
+				auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
+				ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+				ImGui::Separator();
+			}
 			ImGui::End();
 
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });

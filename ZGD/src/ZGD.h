@@ -19,6 +19,10 @@
 
 #include "ZGD/ImGui/ImGuiLayer.h"
 
+#include "ZGD/Scene/Scene.h"
+#include "ZGD/Scene/Components.h"
+#include "ZGD/Scene/Entity.h"
+
 // ---------Renderer-----------
 #include "ZGD/Renderer/Renderer.h"
 #include "ZGD/Renderer/Renderer2D.h"

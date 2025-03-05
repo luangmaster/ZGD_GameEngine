@@ -13,6 +13,7 @@ IncludeDir["Glad"] = "ZGD/vendor/Glad/include"
 IncludeDir["ImGui"] = "ZGD/vendor/imgui"
 IncludeDir["glm"] = "ZGD/vendor/glm"
 IncludeDir["stb_image"] = "ZGD/vendor/stb_image"
+IncludeDir["entt"] = "ZGD/vendor/entt/include"
 
 include "ZGD/vendor/GLFW"
 include "ZGD/vendor/Glad"
@@ -49,7 +50,8 @@ project "ZGD"
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}",
     }
 
     links
@@ -113,7 +115,8 @@ project "Sandbox"
         "ZGD/vendor/spdlog/include",
         "ZGD/src",
         "ZGD/vendor",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+		"%{IncludeDir.entt}",
     }
 
     links
@@ -166,7 +169,8 @@ includedirs
     "ZGD/vendor/spdlog/include",
     "ZGD/src",
     "ZGD/vendor",
-    "%{IncludeDir.glm}"
+    "%{IncludeDir.glm}",
+	"%{IncludeDir.entt}",
 }
 
 links
