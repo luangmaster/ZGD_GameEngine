@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "ZGD/Renderer/Camera.h"
+#include "SceneCamera.h"
 
 namespace ZGD {
 
@@ -41,13 +41,11 @@ namespace ZGD {
 
 	struct CameraComponent
 	{
-		ZGD::Camera Camera;
-
+		SceneCamera Camera;
 		bool Primary = true;
+		bool FixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const glm::mat4& projection)
-			: Camera(projection) {}
 	};
 }
