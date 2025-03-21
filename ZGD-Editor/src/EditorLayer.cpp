@@ -14,7 +14,7 @@ namespace ZGD {
 	{
 		ZGD_PROFILE_FUNCTION();
 
-		m_CheckerboardTexture = ZGD::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 
 		FramebufferSpecification fbspec;
 		fbspec.Width = 1280;
@@ -28,6 +28,13 @@ namespace ZGD {
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 
 		m_SquareEntity = square;
+
+		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
+		m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+
+		m_SecondCamera = m_ActiveScene->CreateEntity("Second Camera");
+		auto& cc = m_SecondCamera.AddComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
+		cc.Primary = false;
 	}
 
 	void EditorLayer::OnDetach()
@@ -35,12 +42,12 @@ namespace ZGD {
 		ZGD_PROFILE_FUNCTION();
 	}
 
-	void EditorLayer::OnUpdate(ZGD::TimeStep ts)
+	void EditorLayer::OnUpdate(TimeStep ts)
 	{
 		ZGD_PROFILE_FUNCTION();
 
 		// Resize
-		if (ZGD::FramebufferSpecification spec = m_Framebuffer->GetSpecification();
+		if (FramebufferSpecification spec = m_Framebuffer->GetSpecification();
 			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f &&
 			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
 		{
@@ -54,16 +61,13 @@ namespace ZGD {
 
 
 		// Render
-		ZGD::Renderer2D::ResetStats();
+		Renderer2D::ResetStats();
 		m_Framebuffer->Bind();
-		ZGD::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-		ZGD::RenderCommand::Clear();
-
-		Renderer2D::BeginScene(m_CameraController.GetCamera());
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		RenderCommand::Clear();
 
 		m_ActiveScene->OnUpdate(ts);
-
-		ZGD::Renderer2D::EndScene();
+		 
 		m_Framebuffer->UnBind();
 	}
 
@@ -127,7 +131,7 @@ namespace ZGD {
 					// which we can't undo at the moment without finer window depth/z control.
 					//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-					if (ImGui::MenuItem("Exit")) ZGD::Application::Get().Close();
+					if (ImGui::MenuItem("Exit")) Application::Get().Close();
 					ImGui::EndMenu();
 				}
 
@@ -136,7 +140,7 @@ namespace ZGD {
 
 			ImGui::Begin("Settings");
 
-			auto stats = ZGD::Renderer2D::GetStats();
+			auto stats = Renderer2D::GetStats();
 			ImGui::Text("Renderer2D Stats:");
 			ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 			ImGui::Text("Quads: %d", stats.QuadCount);
@@ -153,6 +157,26 @@ namespace ZGD {
 				ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 				ImGui::Separator();
 			}
+
+			//ImGui::DragFloat3("Camera Transform",
+			//	glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
+			if (m_PrimaryCamera) {
+				ImGui::DragFloat3("Camera Transform",
+					glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
+			}
+			else
+			{
+				ImGui::DragFloat3("Camera Transform",
+					glm::value_ptr(m_SecondCamera.GetComponent<TransformComponent>().Transform[3]));
+			}
+
+			if (ImGui::Checkbox("Camera A", &m_PrimaryCamera))
+			{			
+				m_CameraEntity.GetComponent<CameraComponent>().Primary = m_PrimaryCamera;
+				m_SecondCamera.GetComponent<CameraComponent>().Primary = !m_PrimaryCamera;
+			}
+
+
 			ImGui::End();
 
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
@@ -177,7 +201,7 @@ namespace ZGD {
 		{
 			ImGui::Begin("Settings");
 
-			auto stats = ZGD::Renderer2D::GetStats();
+			auto stats = Renderer2D::GetStats();
 			ImGui::Text("Renderer2D Stats:");
 			ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 			ImGui::Text("Quads: %d", stats.QuadCount);
@@ -189,7 +213,7 @@ namespace ZGD {
 		}
 	}
 
-	void EditorLayer::OnEvent(ZGD::Event& e)
+	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
 	}

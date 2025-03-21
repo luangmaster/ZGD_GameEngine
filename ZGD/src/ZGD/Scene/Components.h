@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "ZGD/Renderer/Camera.h"
+
 namespace ZGD {
 
 	struct TagComponent
@@ -35,5 +37,17 @@ namespace ZGD {
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color) {}
+	};
+
+	struct CameraComponent
+	{
+		ZGD::Camera Camera;
+
+		bool Primary = true;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+		CameraComponent(const glm::mat4& projection)
+			: Camera(projection) {}
 	};
 }
