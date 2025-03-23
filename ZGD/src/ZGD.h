@@ -22,6 +22,7 @@
 #include "ZGD/Scene/Scene.h"
 #include "ZGD/Scene/Components.h"
 #include "ZGD/Scene/Entity.h"
+#include "ZGD/Scene/ScriptableEntity.h"
 
 // ---------Renderer-----------
 #include "ZGD/Renderer/Renderer.h"
