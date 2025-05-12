@@ -39,17 +39,17 @@ namespace ZGD {
 		class CameraController : public ScriptableEntity
 		{
 		public:
-			void OnCreate()
+			virtual void OnCreate() override
 			{
 				auto& transform = GetComponent<TransformComponent>().Transform;
 				transform[3][0] =( rand()+time(0)) % 10 - 5.0f;
 			}
 
-			void OnDestroy()
+			virtual void OnDestroy() override
 			{
 			}
 
-			void OnUpdate(TimeStep ts)
+			virtual void OnUpdate(TimeStep ts) override
 			{
 				auto& transform = GetComponent<TransformComponent>().Transform;
 				float speed = 5.0f;
