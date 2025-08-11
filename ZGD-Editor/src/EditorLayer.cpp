@@ -44,8 +44,8 @@ namespace ZGD {
 		public:
 			virtual void OnCreate() override
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
-				transform[3][0] =( rand()+time(0)) % 10 - 5.0f;
+				auto& transform = GetComponent<TransformComponent>().Translation;
+				transform.x =( rand()+time(0)) % 10 - 5.0f;
 			}
 
 			virtual void OnDestroy() override
@@ -54,17 +54,17 @@ namespace ZGD {
 
 			virtual void OnUpdate(TimeStep ts) override
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
+				auto& transform = GetComponent<TransformComponent>().Translation;
 				float speed = 5.0f;
 
 				if (Input::IsKeyPressed(KeyCode::A))
-					transform[3][0] -= speed * ts;
+					transform.x -= speed * ts;
 				if (Input::IsKeyPressed(KeyCode::D))
-					transform[3][0] += speed * ts;
+					transform.x += speed * ts;
 				if (Input::IsKeyPressed(KeyCode::W))
-					transform[3][1] += speed * ts;
+					transform.y += speed * ts;
 				if (Input::IsKeyPressed(KeyCode::S))
-					transform[3][1] -= speed * ts;
+					transform.y -= speed * ts;
 			}
 		};
 
